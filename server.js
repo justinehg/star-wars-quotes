@@ -19,13 +19,11 @@ MongoClient.connect('mongodb+srv://jhoang:Quynh2001@cluster0.mcjk6.mongodb.net/?
             console.log('listening on 3000')
         })
         app.get('/', (req, res) => {
-            const cursor = db.collection('quotes').find()
-            console.log(cursor)
             db.collection('quotes').find().toArray()
                 .then(results => {
                     res.render('index.ejs', { quotes: results })
             })
-                 .catch(error => console.error(error))
+            .catch(error => console.error(error))
         })
         app.post('/quotes', (req, res) => {
             quotesCollection.insertOne(req.body)
@@ -35,8 +33,35 @@ MongoClient.connect('mongodb+srv://jhoang:Quynh2001@cluster0.mcjk6.mongodb.net/?
               .catch(error => console.error(error))
         })
         app.put('/quotes', (req, res) => {
-            console.log(req.body)
-          })
+            quotesCollection.findOneAndUpdate(
+                { name: 'Yoda'},
+                {
+                    $set: {
+                        name: req.body.name,
+                        quote: req.body.quote
+                    }
+                },
+                {
+                    upsert: true
+                }
+            )
+                .then(result => {
+                    res.json('Success')
+                })
+                .catch(error => console.error(error))
+        })
+        app.delete('/quotes', (req, res) => {
+            quotesCollection.deleteOne(
+              { name: req.body.name }
+            )
+              .then(result => {
+                if (result.deletedCount === 0) {
+                    return res.json('No quote to delete')
+                }
+                res.json(`Deleted Darth Vader's quote`)
+              })
+              .catch(error => console.error(error))
+        })
     })
     
 

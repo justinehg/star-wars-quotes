@@ -14,20 +14,17 @@
       <input type="text" placeholder="Quote" name="Quote" />
       <button type="submit">Submit</button>
     </form>
-    <!-- Display Quotes -->
+<!-- Display Quotes -->
     <h2> Quotes </h2>
-
     <ul class="quotes">
-        <!-- Loop through notes -->
-        <% for (var i=0; i < quotes.length; i++) {%>
-            <li class="quote">
-            <!-- Output name from the iterated quote object -->
-            <span><%= quotes[i].name %></span>:
-            <!-- Output quote from the iterated quote object -->
-            <span><%= quotes[i].quote %></span>
-            </li>
-        <% } %>
-    <!-- Replace Quote -->
+      <% for(var i = 0; i < quotes.length; i++) {%>
+        <li class="quote">
+          <span><%= quotes[i].name %></span>:
+          <span><%= quotes[i].quote %></span>
+        </li>
+      <% } %>
+</ul>
+<!-- Replace Quote -->
     <div>
         <h2>Darth Vader invades!</h2>
         <p>
@@ -36,6 +33,17 @@
         <button id="update-button">Replace Yoda's quote</button>
       </div>
     </ul>
-    <script src="/main.js"></script>
+<!-- Delete Quote -->
+<div>
+  <h2>Remove Darth Vader!</h2>
+  <p>
+    Delete one Darth Vader's quote. Does nothing if there are no more Darth
+    Vader's quote
+  </p>
+  <button id="delete-button">Delete Darth Vader's quote</button>
+  <div id="message"></div>    
+</div>
+
+  <script src="/main.js"></script>
   </body>
 </html>
